@@ -31,4 +31,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
 
+
+    implementation 'io.reactivex.rxjava2:rxjava:2.0.1'//40.8k
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'//18.7k
 }

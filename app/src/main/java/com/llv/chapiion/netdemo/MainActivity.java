@@ -1,14 +1,16 @@
 package com.llv.chapiion.netdemo;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.llv.chapiion.netdemo.net.HttpUtils;
 import com.llv.chapiion.netdemo.net.bean.ServerResponse;
-import com.llv.chapiion.netdemo.net.callback.Callback;
+import com.llv.chapiion.netdemo.net.callback.MyCallBack;
+import com.llv.chapiion.netdemo.net.callback.MyObservable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,15 +22,29 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void testNet() {
-        HttpUtils.getInstance().appLogout("dsdsd").enqueue(new Callback<ServerResponse>() {
+        HttpUtils.getInstance().appLogout("dsdsd").enqueue(new MyCallBack<ServerResponse>() {
             @Override
-            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-                super.onResponse(call, response);
-                if (issuccess) {
+            public void onFail(String errer) {
+            }
 
-                }
-
+            @Override
+            public void onSuccess(@NonNull ServerResponse serverResponse) {
             }
         });
+
+        HttpUtils.getInstance().appLogoutB("tokenId")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new MyObservable<ServerResponse>() {
+                    @Override
+                    public void onSuccess(@NonNull ServerResponse serverResponse) {
+
+                    }
+
+                    @Override
+                    public void onFail(String error) {
+
+                    }
+                });
     }
 }

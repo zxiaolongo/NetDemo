@@ -1,5 +1,7 @@
 package com.llv.chapiion.netdemo.net;
 
+import android.database.Observable;
+
 import com.llv.chapiion.netdemo.net.bean.ServerResponse;
 
 import retrofit2.Call;
@@ -26,5 +28,13 @@ public interface ResponseApi {
      */
     @POST(UrlConstants.Login.LOGIN_OUT)
     Call<ServerResponse> appLogout(@Header("tokenId") String tokenId);
+
+    /**
+     * 退出登陆
+     *
+     * @param tokenId
+     */
+    @POST(UrlConstants.Login.LOGIN_OUT)
+    io.reactivex.Observable<ServerResponse> appLogoutB(@Header("tokenId") String tokenId);
 
 }
